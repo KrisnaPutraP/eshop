@@ -31,6 +31,59 @@ I'm ensuring that all of my functions only do one single job.
 I'm avoiding comment usage for obvious stuff. For this particular module, I haven't written any comments because there are no complex logic or algorithms that I needed to explain. I only write TODO comments for pending work.
 
 ### 4. Objects and Data Structures
-In order to follow OOP principles, I'm making sure that there are no unnecessary dependencies between variables by keeping some variables private. For this module, there are not many data structures that I can implement except List and Iterator.
+In order to follow OOP principles, I'm making sure that there are no unnecessary dependencies between variables by keeping some variables private. For this module, there are not many data structures that I can implement except List and Iterator. Additionaly, I've made `productData` final to avoid accidental reassignment.
+
+```java
+    private final List<Product> productData = new ArrayList<>();
+```
 
 ### 5. Error Handling
+In this module, I've added new dependency for input validation to make sure that the product name can't be empty and the product quantity must be at least 1. 
+
+```
+    dependencies {
+        ...
+        implementation("org.springframework.boot:spring-boot-starter-validation")
+        ...
+    }
+```
+
+Then, I use that dependency inside the model package:
+
+```java
+    package id.ac.ui.cs.advprog.eshop.model;
+    
+    import lombok.Getter;
+    import lombok.Setter;
+    
+    import jakarta.validation.constraints.NotBlank;
+    import jakarta.validation.constraints.Min;
+    
+    @Getter @Setter
+    public class Product {
+        private String productId;
+    
+        @NotBlank(message = "Product name is required")
+        private String productName;
+    
+        @Min(value = 1, message = "Quantity must be at least 1")
+        private int productQuantity;
+    }
+```
+
+Also, I've made changes in controller package, particularly for creating and editing products:
+
+```java
+    @PostMapping("/create")
+    public String createProductPost(@Valid @ModelAttribute Product product,
+                                    BindingResult bindingResult,
+                                    Model model) {
+        if (bindingResult.hasErrors()) {
+            return "createProduct";
+        }
+        service.create(product);
+        return "redirect:list";
+    }
+```
+
+
