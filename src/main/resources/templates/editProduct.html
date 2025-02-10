@@ -13,7 +13,6 @@
 <div class="container">
     <h3>Edit Product</h3>
 
-
     <form th:action="@{/product/edit}" th:object="${product}" method="post">
         <input th:field="*{productId}" type="hidden" />
 
@@ -22,12 +21,20 @@
             <input th:field="*{productName}" type="text"
                    class="form-control mb-4 col-4" id="nameInput"
                    placeholder="Enter product name">
+            <div class="text-danger"
+                 th:if="${#fields.hasErrors('productName')}"
+                 th:errors="*{productName}">
+            </div>
         </div>
         <div class="form-group">
             <label for="quantityInput">Quantity</label>
             <input th:field="*{productQuantity}" type="number"
                    class="form-control mb-4 col-4" id="quantityInput"
                    placeholder="Enter product quantity">
+            <div class="text-danger"
+                 th:if="${#fields.hasErrors('productQuantity')}"
+                 th:errors="*{productQuantity}">
+            </div>
         </div>
         <button type="submit" class="btn btn-primary">Save Changes</button>
     </form>
