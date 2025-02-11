@@ -21,8 +21,8 @@ public class ProductServiceImpl implements ProductService {
         if (product.getProductId() == null || product.getProductId().isEmpty()) {
             product.setProductId(UUID.randomUUID().toString());
         }
-        productRepository.create(product);
-        return product;
+        validateProduct(product);
+        return productRepository.create(product);
     }
 
     @Override
@@ -40,11 +40,21 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product update(Product product) {
+        validateProduct(product);
         return productRepository.update(product);
     }
 
     @Override
     public void deleteById(String productId) {
         productRepository.deleteById(productId);
+    }
+
+    private void validateProduct(Product product) {
+        if (product.getProductName() == null || product.getProductName().trim().isEmpty()) {
+            throw new IllegalArgumentException("Product name cannot be empty");
+        }
+        if (product.getProductQuantity() < 0) {
+            throw new IllegalArgumentException("Product quantity cannot be negative");
+        }
     }
 }
