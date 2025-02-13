@@ -139,6 +139,6 @@ public class ProductListFunctionalTest extends BaseProductFunctionalTest {
 }
 ```
 
-Another approach is tog create test helper methods in a utility class for common operations like "createProduct" or "countProductList" that can be reused across different test classes.
+Another approach is to create test helper methods in a utility class for common operations like "createProduct" or "countProductList" that can be reused across different test classes.
 This would make our test code much cleaner, easier to maintain, and more aligned with clean code principles. It also makes it easier to add new functional test suites in the future since they can just inherit the common setup code instead of duplicating it.
 
