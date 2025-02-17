@@ -36,10 +36,11 @@ class ProductServiceImplTest {
     }
 
     @Test
-    void testCreateProductWithoutId() {
+    void testCreateProductWithNullId() {
         Product inputProduct = new Product();
         inputProduct.setProductName("Test Product");
         inputProduct.setProductQuantity(10);
+        inputProduct.setProductId(null);
 
         when(productRepository.create(any(Product.class))).thenReturn(inputProduct);
 
@@ -47,8 +48,28 @@ class ProductServiceImplTest {
 
         assertNotNull(result.getProductId());
         assertEquals(inputProduct.getProductName(), result.getProductName());
+        assertEquals(inputProduct.getProductQuantity(), result.getProductQuantity());
         verify(productRepository).create(inputProduct);
     }
+
+    @Test
+    void testCreateProductWithEmptyId() {
+        Product inputProduct = new Product();
+        inputProduct.setProductName("Test Product");
+        inputProduct.setProductQuantity(10);
+        inputProduct.setProductId("");
+
+        when(productRepository.create(any(Product.class))).thenReturn(inputProduct);
+
+        Product result = productService.create(inputProduct);
+
+        assertNotNull(result.getProductId());
+        assertEquals(inputProduct.getProductName(), result.getProductName());
+        assertEquals(inputProduct.getProductQuantity(), result.getProductQuantity());
+        verify(productRepository).create(inputProduct);
+    }
+
+
 
     @Test
     void testCreateProductWithExistingId() {

@@ -16,16 +16,21 @@ public class ProductRepositoryTest {
 
     @InjectMocks
     ProductRepository productRepository;
+
     @BeforeEach
     void setUp() {
     }
+
     @Test
     void testCreateAndFind() {
         Product product = new Product();
         product.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
         product.setProductName("Sampo Cap Bambang");
         product.setProductQuantity(100);
-        productRepository.create(product);
+        Product result = productRepository.create(product);
+
+        assertNotNull(result);
+        assertEquals(product, result);
 
         Iterator<Product> productIterator = productRepository.findAll();
         assertTrue(productIterator.hasNext());
@@ -129,6 +134,12 @@ public class ProductRepositoryTest {
     }
 
     @Test
+    void testDeleteProduct_NonExistent() {
+        productRepository.deleteById("non-existent-id");
+        assertTrue(true);
+    }
+
+    @Test
     void testDeleteProduct_WithMultipleProducts() {
         Product product1 = new Product();
         product1.setProductId("id-1");
@@ -171,4 +182,112 @@ public class ProductRepositoryTest {
         Product result = productRepository.findById("non-existent-id");
         assertNull(result);
     }
+
+    @Test
+    void testFindById_ProductIdNotEquals() {
+        Product product1 = new Product();
+        product1.setProductId("product-1");
+        product1.setProductName("Product One");
+        product1.setProductQuantity(100);
+        productRepository.create(product1);
+
+        Product product2 = new Product();
+        product2.setProductId("product-2");
+        product2.setProductName("Product Two");
+        product2.setProductQuantity(50);
+        productRepository.create(product2);
+
+        Product result = productRepository.findById("product-3");
+
+        assertNull(result);
+    }
+
+
+    @Test
+    void testFindById_ProductIdIsNull() {
+        Product product = new Product();
+        product.setProductId(null);
+        product.setProductName("Test Product");
+        product.setProductQuantity(100);
+        productRepository.create(product);
+
+        Product result = productRepository.findById("some-id");
+        assertNull(result);
+    }
+
+
+    @Test
+    void testCreate_NullProductId() {
+        Product product = new Product();
+        product.setProductId(null);
+        product.setProductName("Product with no ID");
+        product.setProductQuantity(10);
+
+        Product result = productRepository.create(product);
+        assertNotNull(result);
+        assertNull(result.getProductId());
+        assertEquals("Product with no ID", result.getProductName());
+        assertEquals(10, result.getProductQuantity());
+    }
+
+    @Test
+    void testUpdate_NullProductId() {
+        Product product = new Product();
+        product.setProductId("test-id");
+        product.setProductName("Test Product");
+        productRepository.create(product);
+
+        Product updateProduct = new Product();
+        updateProduct.setProductId(null);
+        Product result = productRepository.update(updateProduct);
+        assertNull(result);
+    }
+
+    @Test
+    void testUpdate_ExistingProductWithNullId() {
+        Product product = new Product();
+        product.setProductId(null);
+        productRepository.create(product);
+
+        Product updateProduct = new Product();
+        updateProduct.setProductId("test-id");
+        Product result = productRepository.update(updateProduct);
+        assertNull(result);
+    }
+
+    @Test
+    void testFindById_NullId() {
+        Product result = productRepository.findById(null);
+        assertNull(result);
+    }
+
+    @Test
+    void testDeleteById_NullId() {
+        productRepository.deleteById(null);
+        assertTrue(true);
+    }
+
+    @Test
+    void testUpdate_NullProduct() {
+        Product result = productRepository.update(null);
+        assertNull(result);
+    }
+
+    @Test
+    void testUpdate_ProductIdMismatch() {
+        Product existingProduct = new Product();
+        existingProduct.setProductId("existing-id");
+        existingProduct.setProductName("Existing Product");
+        existingProduct.setProductQuantity(100);
+        productRepository.create(existingProduct);
+
+        Product updatedProduct = new Product();
+        updatedProduct.setProductId("different-id");
+        updatedProduct.setProductName("Updated Product");
+        updatedProduct.setProductQuantity(150);
+
+        Product result = productRepository.update(updatedProduct);
+        assertNull(result);
+    }
+
 }
