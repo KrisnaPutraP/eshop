@@ -142,3 +142,24 @@ public class ProductListFunctionalTest extends BaseProductFunctionalTest {
 Another approach is to create test helper methods in a utility class for common operations like "createProduct" or "countProductList" that can be reused across different test classes.
 This would make our test code much cleaner, easier to maintain, and more aligned with clean code principles. It also makes it easier to add new functional test suites in the future since they can just inherit the common setup code instead of duplicating it.
 
+# Module 2: CI/CD & DevOps
+
+## Reflection
+
+> List the code quality issue(s) that you fixed during the exercise and explain your strategy on fixing them.
+
+There are a few code quality issues that I have fixed during this exercise:
+
+1. Removing unused imports, including wildcard imports. By removing unused imports, I can eliminate unnecessary intermodule dependencies, simplifying the dependency graph and speeding up compilation. Removing wildcard imports also can prevent potential naming conflicts and ambiguity. My strategies on fixing them are replacing wildcard imports with necessary imports one by one and making sure that there's no unused import (highlighted in dark gray).
+
+2. Changing function names that didn't follow Java naming convention (mixing camel case and snake case). While not significant, this can leads to confusion and ambiguity. Initially, when I was creating unit tests, I added _Validation suffix to those unit test functions. But that goes against Java naming convention. My strategy is making sure that each of my function follows Java naming convention (camel case).
+
+3. Removing unnecessary `public` modifiers inside an interface. Variables declared inside interface are public by default. My strategy on fixing it is removing the `public` modifier inside the ProductService interface.
+
+4. Adding braces into statement. Statement without braces is hard to read and maintain because it's confusing. My strategy is making sure that there is no "one-liner code" by adding proper curly braces into if statement or loop even if it only has one statement inside.
+
+5. Adding comment into empty method body. Ignoring empty methods is a bad practice because it can leads to confusion. By explicitly commenting empty methods it is easier to distinguish between intentional (commented) and unintentional empty methods. My strategy is commenting the intention of making that method empty. 
+
+> Look at your CI/CD workflows (GitHub)/pipelines (GitLab). Do you think the current implementation has met the definition of Continuous Integration and Continuous Deployment? Explain the reasons (minimum 3 sentences)!
+
+I think my current project has already met CI/CD definition. By using GitHub Actions for running my workflows defined inside `.github/workflows`, I've already implemented Continous Integration (CI) since it automatically triggers the workflows every time there's a push or pull request into a branch. For implementing Continous Deployment (CD), I've also used Koyeb as a platform for deploying my project. It automatically deploys my project every time there's a push or pull request into a branch. 
