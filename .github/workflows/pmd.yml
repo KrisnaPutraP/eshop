@@ -5,6 +5,9 @@ on:
     branches:
       - '*'
 
+permissions:
+  contents: read
+
 jobs:
   pmd:
     name: Run PMD
@@ -26,12 +29,10 @@ jobs:
           version: '7.0.0-rc4'
           sourcePath: 'src/'
           rulesets: 'rulesets/java/quickstart.xml'
-          analyzeModifiedFilesOnly: false
           uploadSarifReport: true
 
       - name: Upload PMD artifacts
         uses: actions/upload-artifact@v4
-        if: always()
         with:
           name: pmd-results
           path: pmd-results.sarif
