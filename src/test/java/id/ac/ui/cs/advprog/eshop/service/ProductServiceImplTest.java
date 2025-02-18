@@ -98,7 +98,7 @@ class ProductServiceImplTest {
     }
 
     @Test
-    void testFindById_Exists() {
+    void testFindByIdExists() {
         when(productRepository.findById(product.getProductId())).thenReturn(product);
 
         Product result = productService.findById(product.getProductId());
@@ -109,7 +109,7 @@ class ProductServiceImplTest {
     }
 
     @Test
-    void testFindById_NotExists() {
+    void testFindByIdNotExists() {
         when(productRepository.findById("nonexistent")).thenReturn(null);
 
         Product result = productService.findById("nonexistent");
@@ -119,7 +119,7 @@ class ProductServiceImplTest {
     }
 
     @Test
-    void testUpdateProduct_Success() {
+    void testUpdateProductSuccess() {
         when(productRepository.update(product)).thenReturn(product);
 
         Product result = productService.update(product);
@@ -130,7 +130,7 @@ class ProductServiceImplTest {
     }
 
     @Test
-    void testUpdateProduct_WithZeroQuantity() {
+    void testUpdateProductWithZeroQuantity() {
         Product updateProduct = new Product();
         updateProduct.setProductId("test-id");
         updateProduct.setProductName("Test Product");
@@ -146,7 +146,7 @@ class ProductServiceImplTest {
     }
 
     @Test
-    void testUpdateProduct_WithNegativeQuantity() {
+    void testUpdateProductWithNegativeQuantity() {
         Product updateProduct = new Product();
         updateProduct.setProductId("test-id");
         updateProduct.setProductName("Test Product");
@@ -161,7 +161,7 @@ class ProductServiceImplTest {
     }
 
     @Test
-    void testUpdateProduct_WithEmptyName() {
+    void testUpdateProductWithEmptyName() {
         Product updateProduct = new Product();
         updateProduct.setProductId("test-id");
         updateProduct.setProductName("");
@@ -176,7 +176,7 @@ class ProductServiceImplTest {
     }
 
     @Test
-    void testUpdateProduct_WithBlankName() {
+    void testUpdateProductWithBlankName() {
         Product updateProduct = new Product();
         updateProduct.setProductId("test-id");
         updateProduct.setProductName("   ");
@@ -191,7 +191,7 @@ class ProductServiceImplTest {
     }
 
     @Test
-    void testUpdateProduct_WithNullName() {
+    void testUpdateProductWithNullName() {
         Product updateProduct = new Product();
         updateProduct.setProductId("test-id");
         updateProduct.setProductName(null);
@@ -206,7 +206,7 @@ class ProductServiceImplTest {
     }
 
     @Test
-    void testUpdateProduct_NotFound() {
+    void testUpdateProductNotFound() {
         when(productRepository.update(product)).thenReturn(null);
 
         Product result = productService.update(product);

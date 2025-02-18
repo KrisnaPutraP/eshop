@@ -46,7 +46,7 @@ class ProductControllerTest {
     }
 
     @Test
-    void testCreateProductPost_Success() {
+    void testCreateProductPostSuccess() {
         Product product = new Product();
         when(bindingResult.hasErrors()).thenReturn(false);
 
@@ -57,7 +57,7 @@ class ProductControllerTest {
     }
 
     @Test
-    void testCreateProductPost_ValidationError() {
+    void testCreateProductPostValidationError() {
         Product product = new Product();
         when(bindingResult.hasErrors()).thenReturn(true);
 
@@ -79,7 +79,7 @@ class ProductControllerTest {
     }
 
     @Test
-    void testEditProductPage_ExistingProduct() {
+    void testEditProductPageExistingProduct() {
         String productId = "testId";
         Product product = new Product();
         when(productService.findById(productId)).thenReturn(product);
@@ -91,7 +91,7 @@ class ProductControllerTest {
     }
 
     @Test
-    void testEditProductPage_NonExistingProduct() {
+    void testEditProductPageNonExistingProduct() {
         String productId = "nonExistingId";
         when(productService.findById(productId)).thenReturn(null);
 
@@ -102,7 +102,7 @@ class ProductControllerTest {
     }
 
     @Test
-    void testEditProductPost_Success() {
+    void testEditProductPostSuccess() {
         Product product = new Product();
         when(bindingResult.hasErrors()).thenReturn(false);
 
@@ -113,7 +113,7 @@ class ProductControllerTest {
     }
 
     @Test
-    void testEditProductPost_ValidationError() {
+    void testEditProductPostValidationError() {
         Product product = new Product();
         when(bindingResult.hasErrors()).thenReturn(true);
 

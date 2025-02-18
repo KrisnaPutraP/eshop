@@ -70,7 +70,7 @@ public class ProductRepositoryTest {
     }
 
     @Test
-    void testEditProduct_Success() {
+    void testEditProductSuccess() {
         Product product = new Product();
         product.setProductId("test-id");
         product.setProductName("Original Name");
@@ -90,7 +90,7 @@ public class ProductRepositoryTest {
     }
 
     @Test
-    void testEditProduct_PartialUpdate() {
+    void testEditProductPartialUpdate() {
         Product product = new Product();
         product.setProductId("test-id");
         product.setProductName("Original Name");
@@ -109,7 +109,7 @@ public class ProductRepositoryTest {
     }
 
     @Test
-    void testEditProduct_NotFound() {
+    void testEditProductNotFound() {
         Product nonExistentProduct = new Product();
         nonExistentProduct.setProductId("non-existent-id");
         nonExistentProduct.setProductName("Test");
@@ -121,7 +121,7 @@ public class ProductRepositoryTest {
     }
 
     @Test
-    void testDeleteProduct_Success() {
+    void testDeleteProductSuccess() {
         Product product = new Product();
         product.setProductId("test-id");
         product.setProductName("Test Product");
@@ -134,13 +134,13 @@ public class ProductRepositoryTest {
     }
 
     @Test
-    void testDeleteProduct_NonExistent() {
+    void testDeleteProductNonExistent() {
         productRepository.deleteById("non-existent-id");
         assertTrue(true);
     }
 
     @Test
-    void testDeleteProduct_WithMultipleProducts() {
+    void testDeleteProductWithMultipleProducts() {
         Product product1 = new Product();
         product1.setProductId("id-1");
         product1.setProductName("Product 1");
@@ -163,7 +163,7 @@ public class ProductRepositoryTest {
     }
 
     @Test
-    void testFindById_Success() {
+    void testFindByIdSuccess() {
         Product product = new Product();
         product.setProductId("test-id");
         product.setProductName("Test Product");
@@ -178,13 +178,13 @@ public class ProductRepositoryTest {
     }
 
     @Test
-    void testFindById_NotFound() {
+    void testFindByIdNotFound() {
         Product result = productRepository.findById("non-existent-id");
         assertNull(result);
     }
 
     @Test
-    void testFindById_ProductIdNotEquals() {
+    void testFindByIdProductIdNotEquals() {
         Product product1 = new Product();
         product1.setProductId("product-1");
         product1.setProductName("Product One");
@@ -204,7 +204,7 @@ public class ProductRepositoryTest {
 
 
     @Test
-    void testFindById_ProductIdIsNull() {
+    void testFindByIdProductIdIsNull() {
         Product product = new Product();
         product.setProductId(null);
         product.setProductName("Test Product");
@@ -217,7 +217,7 @@ public class ProductRepositoryTest {
 
 
     @Test
-    void testCreate_NullProductId() {
+    void testCreateNullProductId() {
         Product product = new Product();
         product.setProductId(null);
         product.setProductName("Product with no ID");
@@ -231,7 +231,7 @@ public class ProductRepositoryTest {
     }
 
     @Test
-    void testUpdate_NullProductId() {
+    void testUpdateNullProductId() {
         Product product = new Product();
         product.setProductId("test-id");
         product.setProductName("Test Product");
@@ -244,7 +244,7 @@ public class ProductRepositoryTest {
     }
 
     @Test
-    void testUpdate_ExistingProductWithNullId() {
+    void testUpdateExistingProductWithNullId() {
         Product product = new Product();
         product.setProductId(null);
         productRepository.create(product);
@@ -256,25 +256,25 @@ public class ProductRepositoryTest {
     }
 
     @Test
-    void testFindById_NullId() {
+    void testFindByIdNullId() {
         Product result = productRepository.findById(null);
         assertNull(result);
     }
 
     @Test
-    void testDeleteById_NullId() {
+    void testDeleteByIdNullId() {
         productRepository.deleteById(null);
         assertTrue(true);
     }
 
     @Test
-    void testUpdate_NullProduct() {
+    void testUpdateNullProduct() {
         Product result = productRepository.update(null);
         assertNull(result);
     }
 
     @Test
-    void testUpdate_ProductIdMismatch() {
+    void testUpdateProductIdMismatch() {
         Product existingProduct = new Product();
         existingProduct.setProductId("existing-id");
         existingProduct.setProductName("Existing Product");
