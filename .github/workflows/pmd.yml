@@ -1,0 +1,37 @@
+name: PMD Code Analysis
+
+on:
+  push:
+    branches:
+      - '*'
+
+jobs:
+  pmd:
+    name: Run PMD
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Run PMD
+        uses: pmd/pmd-github-action@v1
+        with:
+          version: '7.0.0-rc4'
+          sourcePath: 'src/'
+          rulesets: 'rulesets/java/quickstart.xml'
+          analyzeModifiedFilesOnly: false
+          uploadSarifReport: true
+
+      - name: Upload PMD artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: pmd-results
+          path: pmd-results.sarif
