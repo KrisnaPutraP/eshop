@@ -4,8 +4,8 @@
 - Class: Advanced Programming A
 
 ### Redirect
-- [Module 1](#module-1:-coding-standard)
-- [Module 2](#ci/cd-&-devops)
+- [Module 1](#module-1-coding-standard)
+- [Module 2](#module-2-cicd--devops)
 
 ### Deployment Link
 https://eshop-krisnaputrap.koyeb.app/
