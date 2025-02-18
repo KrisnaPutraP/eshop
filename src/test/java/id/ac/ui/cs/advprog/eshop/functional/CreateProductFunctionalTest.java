@@ -43,7 +43,7 @@ class CreateProductFunctionalTest {
     }
 
     @Test
-    void testCreateProduct_Success() {
+    void testCreateProductSuccess() {
         driver.get(baseUrl + "/product/create");
 
         WebElement nameInput = driver.findElement(By.id("nameInput"));
@@ -61,7 +61,7 @@ class CreateProductFunctionalTest {
 
 
     @Test
-    void testCreateProduct_MissingNameValidation() {
+    void testCreateProductMissingNameValidation() {
         driver.get(baseUrl + "/product/create");
 
         WebElement quantityField = driver.findElement(By.id("quantityInput"));
@@ -79,7 +79,7 @@ class CreateProductFunctionalTest {
     }
 
     @Test
-    void testCreateProduct_NegativeQuantity() {
+    void testCreateProductNegativeQuantity() {
         driver.get(baseUrl + "/product/create");
 
         WebElement nameInput = driver.findElement(By.id("nameInput"));
@@ -99,7 +99,7 @@ class CreateProductFunctionalTest {
     }
 
     @Test
-    void testCreateProduct_EmptyQuantity() {
+    void testCreateProductEmptyQuantity() {
         driver.get(baseUrl + "/product/create");
 
         WebElement nameInput = driver.findElement(By.id("nameInput"));
