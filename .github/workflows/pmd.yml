@@ -29,10 +29,10 @@ jobs:
           version: '7.0.0-rc4'
           sourcePath: 'src/'
           rulesets: 'rulesets/java/quickstart.xml'
-          uploadSarifReport: true
+          analyzeModifiedFilesOnly: false
 
       - name: Upload PMD artifacts
         uses: actions/upload-artifact@v4
         with:
           name: pmd-results
-          path: pmd-results.sarif
+          path: pmd-results.txt
