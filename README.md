@@ -178,4 +178,4 @@ I think my current project has already met CI/CD definition. By using GitHub Act
 
 ## Code Coverage
 
-![code-coverage](https://github.com/user-attachments/assets/963df8ea-7513-402c-a158-696fcad8c2d2)
+![image](https://github.com/user-attachments/assets/19c6e75b-e7f5-422f-8a87-eeee10c2c175)
