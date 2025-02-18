@@ -13,6 +13,7 @@ class EshopApplicationTests {
 
     @Test
     void contextLoads() {
+        // Loading the context
     }
 
     @Test

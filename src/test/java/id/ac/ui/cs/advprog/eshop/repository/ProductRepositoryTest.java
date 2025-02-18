@@ -23,6 +23,7 @@ public class ProductRepositoryTest {
 
     @BeforeEach
     void setUp() {
+        // Initialize the tests
     }
 
     @Test
