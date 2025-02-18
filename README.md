@@ -1,3 +1,15 @@
+### Advanced Programming
+- Name: Krisna Putra Purnomo
+- NPM: 2306228756
+- Class: Advanced Programming A
+
+### Redirect
+- [Module 1](#module-1:-coding-standard)
+- [Module 2](#ci/cd-&-devops)
+
+### Deployment Link
+https://eshop-krisnaputrap.koyeb.app/
+
 # Module 1: Coding Standard
 
 ## Reflection 1
@@ -163,3 +175,7 @@ There are a few code quality issues that I have fixed during this exercise:
 > Look at your CI/CD workflows (GitHub)/pipelines (GitLab). Do you think the current implementation has met the definition of Continuous Integration and Continuous Deployment? Explain the reasons (minimum 3 sentences)!
 
 I think my current project has already met CI/CD definition. By using GitHub Actions for running my workflows defined inside `.github/workflows`, I've already implemented Continous Integration (CI) since it automatically triggers the workflows every time there's a push or pull request into a branch. For implementing Continous Deployment (CD), I've also used Koyeb as a platform for deploying my project. It automatically deploys my project every time there's a push or pull request into a branch. 
+
+## Code Coverage
+
+![code-coverage](https://github.com/user-attachments/assets/963df8ea-7513-402c-a158-696fcad8c2d2)
