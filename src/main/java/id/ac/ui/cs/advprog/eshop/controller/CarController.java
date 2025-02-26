@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import jakarta.validation.Valid;
+import org.springframework.validation.BindingResult;
 
 import java.util.List;
 
@@ -28,7 +30,10 @@ class CarController {
     }
 
     @PostMapping("/createCar")
-    public String createCarPost (@ModelAttribute Car car, Model model) {
+    public String createCarPost (@Valid @ModelAttribute Car car, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            return "createCar";
+        }
         carService.create(car);
         return "redirect:listCar";
     }
@@ -48,7 +53,10 @@ class CarController {
     }
 
     @PostMapping("/editCar")
-    public String editCarPost (@ModelAttribute Car car, Model model) {
+    public String editCarPost (@Valid @ModelAttribute Car car, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "editCar";
+        }
         carService.update(car.getCarId(), car);
         return "redirect:listCar";
     }
