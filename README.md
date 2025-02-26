@@ -179,3 +179,24 @@ I think my current project has already met CI/CD definition. By using GitHub Act
 ## Code Coverage
 
 ![image](https://github.com/user-attachments/assets/19c6e75b-e7f5-422f-8a87-eeee10c2c175)
+
+# Module 3: OO Principles & Maintainability
+
+## Reflection
+
+>Apply the SOLID principles you have learned. You are allowed to modify the source code according to the principles you want to implement. Please answer the following questions:
+> 1) Explain what principles you apply to your project!
+> 2) Explain the advantages of applying SOLID principles to your project with examples.
+> 3) Explain the disadvantages of not applying SOLID principles to your project with examples.
+
+1. I've tried to apply all of the SOLID principles. Here are those:
+- Single Responsibility Principle. I've separated all of the Controller file according to their endpoint. `MainController.java` is responsible for `/` endpoint, `CarController.java` is responsible for `/car` endpoint, and `ProductController.java` is responsible for `/product` endpoint.
+- Open Close Principle. I've created an `update()` method for `Car` model, so that if the `Car` model has a subclass in the future, its subclass just has to override that method and doesn't need to modify its behaviour.
+- Liskov Substitution Principle. At `before-solid` branch, `ProductController.java` has two classes, which is `ProductController` and `CarController`. Here, `CarController` extends `ProductController` which means that the `CarController` is a subclass of `ProductController`. That doesn't make any sense because `CarController` has different behaviours from its superclass. If the object from a superclass can't be substituted by the object from its subclass, then the subclass needs to be separated into its own file.
+- Interface Segregation Principle. I've already separated CarService and ProductService, and both classes already implemented CRUD (Create, Read, Update, Delete). Also, both class services don't depend on one another.
+- Dependency Inversion Principle. At `before-solid` branch, `CarController` depends on CarServiceImpl, which is not good because high-level module should depends on abstractions rather than implementations. After finishing the exercise at `after-solid` branch, I changed the dependency by makiing `CarController` depends on `CarService` interface. I also changed the `carService` data type from `CarServiceImpl` into `CarService`.
+
+2. In my opinion, by using SOLID principles, object-oriented software development is easier to maintain. SOLID principles can help software developers to craft resilient, verifiable, adaptable, and manageable object-oriented software architectures. By applying those principles, the software can be more robust. Ultimately, it will result in the creation of adaptable, efficient, and flexible software without significant issues. For example, before the implementation of the SOLID principles at `before-solid` branch, any change in `ProductController` can alter the functionality of `CarController` even though those two classes are not related and should have different behaviours.
+
+
+3. The primary disadvantage of not applying SOLID principles is that it makes the code harder to maintain, which in turn affects the software's robustness. Without adhering to SOLID principles, even a small change in the code can cause unintended ripple effects that may disrupt the software's functionality. Additionally, such software becomes more challenging to extend and test. For example, at `before-solid` branch, it will be incredibly difficult to maintain the code. Any change into the `CarServiceImpl` method functionality, the change could affects the entire `CarRepository` method behaviour, leading to fragile codebase.
