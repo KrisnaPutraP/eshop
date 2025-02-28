@@ -19,10 +19,4 @@ public class Car {
 
     @Min(value = 1, message = "Quantity must be at least 1")
     private int carQuantity;
-
-    public void update(Car car){
-        this.setCarName(car.getCarName());
-        this.setCarColor(car.getCarColor());
-        this.setCarQuantity(car.getCarQuantity());
-    }
 }
