@@ -116,7 +116,6 @@ public class ProductController extends AbstractCrudController<Product, ProductSe
         return entity.getProductId();
     }
 
-    // Mapping methods with explicit URL paths to match original controller
 
     @GetMapping("/create")
     public String createProductPage(Model model) {
