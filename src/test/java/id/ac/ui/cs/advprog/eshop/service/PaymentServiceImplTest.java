@@ -1,5 +1,8 @@
 package id.ac.ui.cs.advprog.eshop.service;
 
+import id.ac.ui.cs.advprog.eshop.enums.OrderStatus;
+import id.ac.ui.cs.advprog.eshop.enums.PaymentMethod;
+import id.ac.ui.cs.advprog.eshop.enums.PaymentStatus;
 import id.ac.ui.cs.advprog.eshop.model.Order;
 import id.ac.ui.cs.advprog.eshop.model.Payment;
 import id.ac.ui.cs.advprog.eshop.model.Product;
@@ -89,8 +92,8 @@ public class PaymentServiceImplTest {
             if ("payment-1".equals(id)) {
                 return Payment.builder()
                         .id(id)
-                        .method("BANK_TRANSFER")
-                        .status("WAITING")
+                        .method(PaymentMethod.BANK_TRANSFER.getValue())
+                        .status(PaymentStatus.WAITING.getValue())
                         .paymentData(validBankTransferData)
                         .order(order)
                         .build();
@@ -102,15 +105,15 @@ public class PaymentServiceImplTest {
         when(paymentRepository.findAll()).thenReturn(List.of(
                 Payment.builder()
                         .id("payment-1")
-                        .method("BANK_TRANSFER")
-                        .status("WAITING")
+                        .method(PaymentMethod.BANK_TRANSFER.getValue())
+                        .status(PaymentStatus.WAITING.getValue())
                         .paymentData(validBankTransferData)
                         .order(order)
                         .build(),
                 Payment.builder()
                         .id("payment-2")
-                        .method("VOUCHER")
-                        .status("SUCCESS")
+                        .method(PaymentMethod.VOUCHER.getValue())
+                        .status(PaymentStatus.SUCCESS.getValue())
                         .paymentData(validVoucherData)
                         .order(order)
                         .build()
@@ -119,94 +122,94 @@ public class PaymentServiceImplTest {
 
     @Test
     void testAddPaymentWithBankTransfer() {
-        Payment payment = paymentService.addPayment(order, "BANK_TRANSFER", validBankTransferData);
+        Payment payment = paymentService.addPayment(order, PaymentMethod.BANK_TRANSFER.getValue(), validBankTransferData);
 
         assertNotNull(payment);
-        assertEquals("BANK_TRANSFER", payment.getMethod());
-        assertEquals("SUCCESS", payment.getStatus());
+        assertEquals(PaymentMethod.BANK_TRANSFER.getValue(), payment.getMethod());
+        assertEquals(PaymentStatus.SUCCESS.getValue(), payment.getStatus());
         assertEquals(validBankTransferData, payment.getPaymentData());
         assertEquals(order, payment.getOrder());
 
         verify(paymentRepository, times(1)).save(any(Payment.class));
-        verify(orderService, times(1)).updateStatus(order.getId(), "SUCCESS");
+        verify(orderService, times(1)).updateStatus(order.getId(), OrderStatus.SUCCESS.getValue());
     }
 
     @Test
     void testAddPaymentWithInvalidBankTransfer() {
-        Payment payment = paymentService.addPayment(order, "BANK_TRANSFER", invalidBankTransferData);
+        Payment payment = paymentService.addPayment(order, PaymentMethod.BANK_TRANSFER.getValue(), invalidBankTransferData);
 
         assertNotNull(payment);
-        assertEquals("BANK_TRANSFER", payment.getMethod());
-        assertEquals("REJECTED", payment.getStatus());
+        assertEquals(PaymentMethod.BANK_TRANSFER.getValue(), payment.getMethod());
+        assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
         assertEquals(invalidBankTransferData, payment.getPaymentData());
         assertEquals(order, payment.getOrder());
 
         verify(paymentRepository, times(1)).save(any(Payment.class));
-        verify(orderService, times(1)).updateStatus(order.getId(), "FAILED");
+        verify(orderService, times(1)).updateStatus(order.getId(), OrderStatus.FAILED.getValue());
     }
 
     @Test
     void testAddPaymentWithValidVoucher() {
-        Payment payment = paymentService.addPayment(order, "VOUCHER", validVoucherData);
+        Payment payment = paymentService.addPayment(order, PaymentMethod.VOUCHER.getValue(), validVoucherData);
 
         assertNotNull(payment);
-        assertEquals("VOUCHER", payment.getMethod());
-        assertEquals("SUCCESS", payment.getStatus());
+        assertEquals(PaymentMethod.VOUCHER.getValue(), payment.getMethod());
+        assertEquals(PaymentStatus.SUCCESS.getValue(), payment.getStatus());
         assertEquals(validVoucherData, payment.getPaymentData());
         assertEquals(order, payment.getOrder());
 
         verify(paymentRepository, times(1)).save(any(Payment.class));
-        verify(orderService, times(1)).updateStatus(order.getId(), "SUCCESS");
+        verify(orderService, times(1)).updateStatus(order.getId(), OrderStatus.SUCCESS.getValue());
     }
 
     @Test
     void testAddPaymentWithInvalidVoucher() {
-        Payment payment = paymentService.addPayment(order, "VOUCHER", invalidVoucherData);
+        Payment payment = paymentService.addPayment(order, PaymentMethod.VOUCHER.getValue(), invalidVoucherData);
 
         assertNotNull(payment);
-        assertEquals("VOUCHER", payment.getMethod());
-        assertEquals("REJECTED", payment.getStatus());
+        assertEquals(PaymentMethod.VOUCHER.getValue(), payment.getMethod());
+        assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
         assertEquals(invalidVoucherData, payment.getPaymentData());
         assertEquals(order, payment.getOrder());
 
         verify(paymentRepository, times(1)).save(any(Payment.class));
-        verify(orderService, times(1)).updateStatus(order.getId(), "FAILED");
+        verify(orderService, times(1)).updateStatus(order.getId(), OrderStatus.FAILED.getValue());
     }
 
     @Test
     void testSetStatusToSuccess() {
         Payment payment = Payment.builder()
                 .id("payment-test")
-                .method("BANK_TRANSFER")
-                .status("WAITING")
+                .method(PaymentMethod.BANK_TRANSFER.getValue())
+                .status(PaymentStatus.WAITING.getValue())
                 .paymentData(validBankTransferData)
                 .order(order)
                 .build();
 
-        Payment updatedPayment = paymentService.setStatus(payment, "SUCCESS");
+        Payment updatedPayment = paymentService.setStatus(payment, PaymentStatus.SUCCESS.getValue());
 
-        assertEquals("SUCCESS", updatedPayment.getStatus());
+        assertEquals(PaymentStatus.SUCCESS.getValue(), updatedPayment.getStatus());
 
         verify(paymentRepository, times(1)).save(payment);
-        verify(orderService, times(1)).updateStatus(order.getId(), "SUCCESS");
+        verify(orderService, times(1)).updateStatus(order.getId(), OrderStatus.SUCCESS.getValue());
     }
 
     @Test
     void testSetStatusToRejected() {
         Payment payment = Payment.builder()
                 .id("payment-test")
-                .method("BANK_TRANSFER")
-                .status("WAITING")
+                .method(PaymentMethod.BANK_TRANSFER.getValue())
+                .status(PaymentStatus.WAITING.getValue())
                 .paymentData(validBankTransferData)
                 .order(order)
                 .build();
 
-        Payment updatedPayment = paymentService.setStatus(payment, "REJECTED");
+        Payment updatedPayment = paymentService.setStatus(payment, PaymentStatus.REJECTED.getValue());
 
-        assertEquals("REJECTED", updatedPayment.getStatus());
+        assertEquals(PaymentStatus.REJECTED.getValue(), updatedPayment.getStatus());
 
         verify(paymentRepository, times(1)).save(payment);
-        verify(orderService, times(1)).updateStatus(order.getId(), "FAILED");
+        verify(orderService, times(1)).updateStatus(order.getId(), OrderStatus.FAILED.getValue());
     }
 
     @Test
@@ -215,7 +218,7 @@ public class PaymentServiceImplTest {
 
         assertNotNull(payment);
         assertEquals("payment-1", payment.getId());
-        assertEquals("BANK_TRANSFER", payment.getMethod());
+        assertEquals(PaymentMethod.BANK_TRANSFER.getValue(), payment.getMethod());
 
         verify(paymentRepository, times(1)).findById("payment-1");
     }
