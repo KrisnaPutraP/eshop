@@ -1,5 +1,7 @@
 package id.ac.ui.cs.advprog.eshop.model;
 
+import id.ac.ui.cs.advprog.eshop.enums.PaymentMethod;
+import id.ac.ui.cs.advprog.eshop.enums.PaymentStatus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -35,8 +37,8 @@ public class PaymentTest {
         Payment payment = new Payment("payment-123", "BANK_TRANSFER", "WAITING", this.paymentData, this.order);
 
         assertEquals("payment-123", payment.getId());
-        assertEquals("BANK_TRANSFER", payment.getMethod());
-        assertEquals("WAITING", payment.getStatus());
+        assertEquals(PaymentMethod.BANK_TRANSFER.getValue(), payment.getMethod());
+        assertEquals(PaymentStatus.WAITING.getValue(), payment.getStatus());
         assertEquals(this.paymentData, payment.getPaymentData());
         assertEquals(this.order, payment.getOrder());
     }
@@ -44,24 +46,24 @@ public class PaymentTest {
     @Test
     void testSetStatus() {
         Payment payment = new Payment("payment-123", "BANK_TRANSFER", "WAITING", this.paymentData, this.order);
-        payment.setStatus("SUCCESS");
+        payment.setStatus(PaymentStatus.SUCCESS.getValue());
 
-        assertEquals("SUCCESS", payment.getStatus());
+        assertEquals(PaymentStatus.SUCCESS.getValue(), payment.getStatus());
     }
 
     @Test
     void testPaymentBuilder() {
         Payment payment = Payment.builder()
                 .id("payment-456")
-                .method("VOUCHER")
-                .status("WAITING")
+                .method(PaymentMethod.VOUCHER.getValue())
+                .status(PaymentStatus.WAITING.getValue())
                 .paymentData(this.paymentData)
                 .order(this.order)
                 .build();
 
         assertEquals("payment-456", payment.getId());
-        assertEquals("VOUCHER", payment.getMethod());
-        assertEquals("WAITING", payment.getStatus());
+        assertEquals(PaymentMethod.VOUCHER.getValue(), payment.getMethod());
+        assertEquals(PaymentStatus.WAITING.getValue(), payment.getStatus());
         assertEquals(this.paymentData, payment.getPaymentData());
         assertEquals(this.order, payment.getOrder());
     }
