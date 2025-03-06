@@ -7,6 +7,7 @@
 - [Module 1](#module-1-coding-standard)
 - [Module 2](#module-2-cicd--devops)
 - [Module 3](#module-3-oo-principles--maintainability)
+- [Module 4](#module-4-test-driven-development--refactoring)
 
 ### Deployment Link
 https://eshop-krisnaputrap.koyeb.app/
@@ -201,3 +202,25 @@ I think my current project has already met CI/CD definition. By using GitHub Act
 
 
 3. The primary disadvantage of not applying SOLID principles is that it makes the code harder to maintain, which in turn affects the software's robustness. Without adhering to SOLID principles, even a small change in the code can cause unintended ripple effects that may disrupt the software's functionality. Additionally, such software becomes more challenging to extend and test. For example, at `before-solid` branch, it will be incredibly difficult to maintain the code. Any change into the `CarServiceImpl` method functionality, the change could affects the entire `CarRepository` method behaviour, leading to fragile codebase.
+
+# Module 4: Test-Driven Development & Refactoring
+
+## Reflection
+
+>Reflect based on Percival (2017) proposed self-reflective questions (in “Principles and Best Practice of Testing” submodule, chapter “Evaluating Your Testing Objectives”), whether this TDD flow is useful enough for you or not. If not, explain things that you need to do next time you make more tests.
+
+In my opinion, the TDD (Test-Driven Development) flow is particularly useful for large projects that need to be reliable and maintained over the long term. When implemented correctly, TDD can lead to higher code quality, fewer bugs, faster debugging, easier refactoring, and better collaboration. However, personally, I find it challenging since I'm not used to creating tests before implementing the code. I believe it will take some time for me to fully adapt to this approach. But in the future, I plan to adjust and incorporate TDD into my workflow, allowing me to define user input scenarios first and then determine the most suitable implementation.
+
+>You have created unit tests in Tutorial. Now reflect whether your tests have successfully followed F.I.R.S.T. principle or not. If not, explain things that you need to do the next time you create more tests.
+
+I believe my tests follow the F.I.R.S.T. principles.
+
+For the "F" in Fast, my test cases are currently efficient since I am using Mockito, and the testing scale is relatively small. However, I'm uncertain whether the tests will still run fast if the testing scale increases to thousands of unit tests.
+
+For the "I" in Isolated, I think my test cases are independent of each other. The correctness of one test does not depend on any other test, so I believe I have followed this principle.
+
+For the "R" in Repeatable, since I am using Mockito, which doesn't rely on external environments and uses independent data, my tests are consistent and repeatable. Therefore, I think I have adhered to this principle as well.
+
+For the "S" in Self-Validating, all of my tests include assertions. However, I have not added messages to the assertions. To improve, I could add informative messages to each assertion, which would help testers better understand what's happening during the test.
+
+For the "T" in Thorough/Timely, I believe all of my tests cover all possible scenarios, including both the positive (happy) and negative (unhappy) paths. My tests for the Order model, repository, and service also have 100% branch and line coverage. While this doesn't guarantee perfect tests, it does ensure that I have accounted for many different cases. As for improvement, in larger-scale projects, I could add more tests to ensure that no edge cases are overlooked.
