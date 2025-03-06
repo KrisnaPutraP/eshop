@@ -59,7 +59,7 @@ public class PaymentServiceImplTest {
 
         // Setup valid voucher data
         validVoucherData = new HashMap<>();
-        validVoucherData.put("voucherCode", "ESHOP12345678ABCD");
+        validVoucherData.put("voucherCode", "ESHOP12345678ABC");
 
         // Setup invalid voucher data
         invalidVoucherData = new HashMap<>();
@@ -232,8 +232,8 @@ public class PaymentServiceImplTest {
 
     @Test
     void testValidateVoucherCode() {
-        assertTrue(paymentService.isValidVoucherCode("ESHOP12345678ABCD"));
-        assertTrue(paymentService.isValidVoucherCode("ESHOP1234ABCD5678"));
+        assertTrue(paymentService.isValidVoucherCode("ESHOP12345678BWG"));
+        assertTrue(paymentService.isValidVoucherCode("ESHOP1234BZF5678"));
 
         // Invalid: Not 16 chars
         assertFalse(paymentService.isValidVoucherCode("ESHOP123456"));
