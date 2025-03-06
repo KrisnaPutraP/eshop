@@ -1,5 +1,7 @@
 package id.ac.ui.cs.advprog.eshop.repository;
 
+import id.ac.ui.cs.advprog.eshop.enums.PaymentMethod;
+import id.ac.ui.cs.advprog.eshop.enums.PaymentStatus;
 import id.ac.ui.cs.advprog.eshop.model.Order;
 import id.ac.ui.cs.advprog.eshop.model.Payment;
 import id.ac.ui.cs.advprog.eshop.model.Product;
@@ -41,16 +43,16 @@ public class PaymentRepositoryTest {
 
         payment1 = Payment.builder()
                 .id("payment-1")
-                .method("BANK_TRANSFER")
-                .status("WAITING")
+                .method(PaymentMethod.BANK_TRANSFER.getValue())
+                .status(PaymentStatus.WAITING.getValue())
                 .paymentData(paymentData1)
                 .order(order1)
                 .build();
 
         payment2 = Payment.builder()
                 .id("payment-2")
-                .method("VOUCHER")
-                .status("SUCCESS")
+                .method(PaymentMethod.VOUCHER.getValue())
+                .status(PaymentStatus.SUCCESS.getValue())
                 .paymentData(paymentData2)
                 .order(order2)
                 .build();
