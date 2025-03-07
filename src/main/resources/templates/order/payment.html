@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Pay Order</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+<body>
+
+<div class="container">
+  <h3>Pay Order #<span th:text="${order.id}"></span></h3>
+
+  <div th:if="${errorMessage != null}" class="alert alert-danger" role="alert">
+    <span th:text="${errorMessage}"></span>
+  </div>
+
+  <div class="card mb-4">
+    <div class="card-header">
+      Order Details
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">Order #<span th:text="${order.id}"></span></h5>
+      <p class="card-text">Ordered by: <span th:text="${order.author}"></span></p>
+      <p class="card-text">Order Date: <span th:text="${#dates.format(new java.util.Date(order.orderTime), 'yyyy-MM-dd HH:mm')}"></span></p>
+      <p class="card-text">Status: <span th:text="${order.status}"></span></p>
+
+      <h6>Products:</h6>
+      <ul>
+        <li th:each="product: ${order.products}" th:text="${product.productName} + ' - Quantity: ' + ${product.productQuantity}"></li>
+      </ul>
+    </div>
+  </div>
+
+  <form th:action="@{/order/pay/{id}(id=${order.id})}" method="post">
+    <div class="form-group">
+      <label for="paymentMethodSelect">Payment Method</label>
+      <select name="paymentMethod" id="paymentMethodSelect" class="form-control mb-4 col-4" onchange="togglePaymentFields()">
+        <option value="">Select Payment Method</option>
+        <option th:each="method : ${paymentMethods}" th:value="${method}" th:text="${method}"></option>
+      </select>
+    </div>
+
+    <!-- Voucher Fields -->
+    <div id="voucherFields" style="display:none;">
+      <div class="form-group">
+        <label for="voucherCodeInput">Voucher Code</label>
+        <input name="voucherCode" type="text" class="form-control mb-4 col-4" id="voucherCodeInput" placeholder="Enter voucher code (e.g. ESHOP12345678)">
+        <small class="form-text text-muted">Voucher code should start with 'ESHOP' followed by 8 digits.</small>
+      </div>
+    </div>
+
+    <!-- Bank Transfer Fields -->
+    <div id="bankTransferFields" style="display:none;">
+      <div class="form-group">
+        <label for="bankNameInput">Bank Name</label>
+        <input name="bankName" type="text" class="form-control mb-4 col-4" id="bankNameInput" placeholder="Enter bank name">
+      </div>
+      <div class="form-group">
+        <label for="referenceCodeInput">Reference Code</label>
+        <input name="referenceCode" type="text" class="form-control mb-4 col-4" id="referenceCodeInput" placeholder="Enter reference code">
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Complete Payment</button>
+  </form>
+
+  <a th:href="@{/order/history}" class="btn btn-secondary mt-3">Back to Order History</a>
+</div>
+
+<script>
+  function togglePaymentFields() {
+    const method = document.getElementById('paymentMethodSelect').value;
+
+    document.getElementById('voucherFields').style.display = 'none';
+    document.getElementById('bankTransferFields').style.display = 'none';
+
+    if (method === 'VOUCHER') {
+      document.getElementById('voucherFields').style.display = 'block';
+    } else if (method === 'BANK_TRANSFER') {
+      document.getElementById('bankTransferFields').style.display = 'block';
+    }
+  }
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</body>
+</html>
